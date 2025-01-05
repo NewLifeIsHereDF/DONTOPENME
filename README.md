@@ -16,9 +16,6 @@
 
 ---
 
-### **Code Exemple**
-Voici un extrait simplifié (notez que le code complet peut contenir des commandes plus agressives) :
-
 ### **Prérequis**
 1. **Machine virtuelle (VM)** : Ce script doit être testé exclusivement dans un environnement isolé.
 2. **Système Windows** : Assurez-vous que votre VM utilise Windows pour l'exécution.
@@ -53,10 +50,3 @@ Le script contient des commandes qui peuvent causer :
 
 ### **Responsabilité Éthique**
 > La création et la diffusion de programmes nuisibles sont illégales dans de nombreux pays. Ce projet vise exclusivement à l'apprentissage dans un cadre sécurisé. Toute utilisation à des fins malveillantes est une infraction éthique et légale.
-
----
-
-### **Note pour GitHub**
-Si vous partagez ce projet, incluez un fichier `README.md` expliquant clairement les limites et avertissements d'utilisation. Ajoutez également une licence adaptée (par exemple, une licence interdisant l'utilisation malveillante).
-
-Souhaitez-vous que je vous aide à structurer votre `README.md` ou à rédiger une section spécifique ?
