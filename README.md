@@ -1,6 +1,3 @@
-D'accord, si votre script n'est pas inoffensif, mais que vous voulez le présenter comme un outil éducatif conçu pour démontrer les risques en toute sécurité (exclusivement sur des environnements isolés comme des machines virtuelles), voici une présentation claire et responsable pour GitHub.
-
----
 
 # **DONT OPEN ME**
 
