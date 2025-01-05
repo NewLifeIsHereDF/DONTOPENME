@@ -2,51 +2,65 @@
 # **DONT OPEN ME**
 
 ### **Description**
-"DONT OPEN ME" est un script Batch (`.bat`) conçu comme une **démonstration éducative** des risques liés à l'exécution de fichiers `.bat` malveillants. Ce script, destiné à être utilisé uniquement dans un environnement isolé (comme une machine virtuelle), montre comment des commandes simples peuvent altérer le comportement d'un système d'exploitation Windows.
+"DONT OPEN ME" est un script Batch (`.bat`) **extrêmement destructeur**, conçu pour démontrer, à des fins strictement éducatives, les risques majeurs associés à l'exécution de scripts malveillants non vérifiés. Ce script peut **complètement détruire un système Windows**, entraînant une perte totale des données et une panne irrécupérable du système.
 
-> **Avertissement** : Ce script n'est pas inoffensif. Il peut causer des interruptions ou des dysfonctionnements significatifs. **Ne l'exécutez jamais sur un système de production ou une machine personnelle.**
+> **Avertissement** :  
+> Ce script est dangereux et doit être utilisé uniquement dans des environnements isolés, comme une machine virtuelle. **Ne l'exécutez jamais sur un système réel ou avec des données importantes**. L'auteur décline toute responsabilité en cas d'usage inapproprié ou malveillant.
 
 ---
 
 ### **Fonctionnalités**
-- **Altération des paramètres système** : Le script peut modifier des réglages critiques.
-- **Boucles infinies** : Il bloque le système en forçant des processus répétitifs.
-- **Suppression de fichiers non critiques** : Simule un comportement destructeur.
-- **Effets perturbateurs** : Ouvre des fenêtres et modifie des paramètres pour désorienter l'utilisateur.
+- **Suppression massive de fichiers système** : Le script cible et détruit des fichiers critiques nécessaires au fonctionnement de Windows.
+- **Altérations permanentes** : Modifie le registre et d'autres paramètres système de manière irrécupérable.
+- **Comportements destructeurs en boucle** : Provoque des plantages constants et rend la machine inutilisable.
 
 ---
 
 ### **Prérequis**
-1. **Machine virtuelle (VM)** : Ce script doit être testé exclusivement dans un environnement isolé.
-2. **Système Windows** : Assurez-vous que votre VM utilise Windows pour l'exécution.
-3. **Autorisation administrative** : Certaines commandes nécessitent des droits élevés pour fonctionner correctement.
+1. **Machine virtuelle (VM)** : Ce script ne doit être testé que dans un environnement isolé.
+2. **Aucune donnée importante** : Assurez-vous que la machine utilisée ne contient aucun fichier ou information de valeur.
+3. **Système Windows** : Ce script cible les systèmes Windows et peut entraîner une destruction totale du système d'exploitation.
 
 ---
 
 ### **Risques Associés**
-Le script contient des commandes qui peuvent causer :
-1. **Perte de données** :
-   - Suppression de fichiers utilisateur ciblés.
-2. **Blocage du système** :
-   - Boucles infinies ou utilisation excessive des ressources.
-3. **Altérations non récupérables** :
-   - Modifications de la configuration système ou du registre.
+Le script provoque :
+1. **Destruction totale du système** :
+   - Suppression de fichiers critiques nécessaires au démarrage et à l'exécution de Windows.
+   - Corruption irrécupérable des paramètres système.
+2. **Perte complète des données** :
+   - Toutes les données utilisateur et système peuvent être effacées.
+3. **Dysfonctionnements permanents** :
+   - Nécessite une réinstallation complète du système d'exploitation pour restaurer le fonctionnement.
+
+---
+
+### **Clause de Non-Responsabilité**
+1. Ce script est fourni à des fins éducatives uniquement et **n'a pas pour objectif d'être utilisé sur des systèmes réels**.  
+2. L'auteur **décline toute responsabilité** en cas d'usage malveillant, inapproprié ou frauduleux du script. Cela inclut, sans s'y limiter :
+   - Le partage du script sans avertissement explicite.
+   - L'exécution sur des machines réelles ou des systèmes non isolés.
+3. Si quelqu'un exécute ce script sur une machine sans être pleinement conscient de ses conséquences, **l'entière responsabilité revient à celui qui a partagé ou exécuté le fichier**.
 
 ---
 
 ### **Avertissement**
-> **Ce projet est uniquement destiné à des fins éducatives**.  
-> Toute utilisation de ce script en dehors d'un environnement isolé est strictement interdite.  
-> L'auteur décline toute responsabilité en cas d'usage inapproprié ou malveillant.  
+> **NE LANCEZ PAS CE SCRIPT SUR UNE MACHINE RÉELLE.**  
+> Toute exécution de ce script en dehors d'un environnement isolé causera une perte complète et irrémédiable de données et rendra le système inutilisable.
 
 ---
 
 ### **Objectif**
-- **Éduquer** : Montrer comment des scripts `.bat` peuvent être utilisés pour compromettre un système.
-- **Sensibiliser** : Mettre en lumière l'importance de ne pas exécuter de fichiers non vérifiés.
-- **Prévenir** : Apprendre à détecter et désamorcer ce type de menace.
+- **Éduquer** : Illustrer les conséquences graves des scripts malveillants sur un système d'exploitation.
+- **Sensibiliser** : Souligner l'importance de ne jamais exécuter de fichiers `.bat` non vérifiés.
+- **Prévenir** : Enseigner à identifier, analyser et désamorcer des menaces de ce type.
 
 ---
 
 ### **Responsabilité Éthique**
-> La création et la diffusion de programmes nuisibles sont illégales dans de nombreux pays. Ce projet vise exclusivement à l'apprentissage dans un cadre sécurisé. Toute utilisation à des fins malveillantes est une infraction éthique et légale.
+> La création, la diffusion et l'utilisation de programmes destructeurs sont illégales dans de nombreux pays. Ce projet vise uniquement à sensibiliser et éduquer dans un cadre sécurisé. Toute utilisation à des fins malveillantes est une infraction éthique et légale, passible de sanctions pénales et civiles.
+
+---
+
+### **Important**
+Ce script est destiné uniquement à des développeurs, chercheurs , amateur du risque ou éducateurs souhaitant démontrer les impacts d'un script destructeur dans un environnement contrôlé. **Ne partagez ce script qu'avec des avertissements explicites et ne l'exécutez jamais sur un système réel.**
