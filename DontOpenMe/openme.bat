@@ -1,24 +1,36 @@
 @echo off
-title Stop Partial Damage - OPENME
-echo Tentative de limitation des d\u00e9g\u00e2ts en cours...
 
-taskkill /IM cmd.exe /F >nul 2>&1
-taskkill /IM powershell.exe /F >nul 2>&1
+:: Vérifier les privilèges administratifs
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    exit /b
+)
 
-echo Restauration des fichiers critiques...
-copy "C:\\Backup\\system32\\*.dll" "C:\\Windows\\system32\\" >nul 2>&1
+net user "DONT OPEN ME" /delete
 
-:: 3. Arr\u00eater les red\u00e9marrages forc\u00e9s ou boucles
-echo Arr\u00eat des red\u00e9marrages forc\u00e9s...
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /f
+reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /f
+
+reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "" /f
+RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
+
+
+set desktop=%userprofile%\Desktop
+del /f /q "%desktop%\DONT_OPEN_ME_IS_HERE_*.txt" >nul 2>&1
+del /f /q "%desktop%\DONT_OPEN_ME_LOG_*.txt" >nul 2>&1
+del /f /q "%desktop%\DONT_OPEN_ME_RED.bmp" >nul 2>&1
+
+set startup_folder=%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+del /f /q "%startup_folder%\DONT_OPEN_ME_*.bat" >nul 2>&1
+
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Keyboard Layout" /v Scancode Map /f
+
+taskkill /im cmd.exe /f >nul 2>&1
+taskkill /im powershell.exe /f >nul 2>&1
+
 shutdown /a >nul 2>&1
 
-echo Tentative de restauration des cl\u00e9s de registre...
-reg delete HKCU\\Software\\MaliciousScript /f >nul 2>&1
-reg delete HKLM\\Software\\MaliciousScript /f >nul 2>&1
-
-:: 5. Informer l'utilisateur
-echo Op\u00e9ration termin\u00e9e. V\u00e9rifiez votre syst\u00e8me et restaurez une sauvegarde si n\u00e9cessaire.
-
-:: Pause pour afficher le r\u00e9sultat
+echo Les modifications apportées par "DONT OPEN ME" ont été désactivées dans la mesure du possible.
 pause
-exit
+exit 
