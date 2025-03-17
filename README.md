@@ -2,7 +2,7 @@
 
 ### **Description**
 
-"DONT OPEN ME" est un script Batch (`.bat`) **extrêmement destructeur**, conçu pour illustrer, à des fins strictement éducatives, les risques majeurs associés à l'exécution de scripts malveillants non vérifiés. Ce script peut **complètement détruire un système Windows**, entraînant une perte totale des données et une panne irrécouvrable du système.
+"Are You Open Me ?" est un script Batch (`.bat`) **extrêmement destructeur**, conçu pour illustrer, à des fins strictement éducatives, les risques majeurs associés à l'exécution de scripts malveillants non vérifiés. Ce script peut **complètement détruire un système Windows**, entraînant une perte totale des données et une panne irrécouvrable du système.
 
 > **Avertissement** :\
 > Ce script est dangereux et doit être utilisé uniquement dans des environnements isolés, comme une machine virtuelle. **Ne l'exécutez jamais sur un système réel ou avec des données importantes**. L'auteur décline toute responsabilité en cas d'usage inapproprié ou malveillant.
